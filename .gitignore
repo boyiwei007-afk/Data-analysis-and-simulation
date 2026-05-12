@@ -5,4 +5,8 @@ __pycache__/
 *.xlsx
 .pkl
 model_weights/
-.vscode/
+.vscode/__pycache__/ 
+*.pyc 
+backend/uploads/ 
+data/ 
+__pycache__/ 
