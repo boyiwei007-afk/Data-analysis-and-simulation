@@ -21,3 +21,7 @@ torchvision
 typing_extensions==4.15.0
 xlsxwriter==3.2.9
 yapf==0.43.0
+fastapi 
+uvicorn[standard] 
+python-multipart 
+aiofiles 
