@@ -25,3 +25,10 @@ fastapi
 uvicorn[standard] 
 python-multipart 
 aiofiles 
+pandas 
+scikit-learn 
+openpyxl 
+requests 
+python-dotenv 
+seaborn 
+matplotlib 
