@@ -1,0 +1,17 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(mkdir -p \"D:/college_study/scientific_research/project/wby/backend/services\")",
+      "Bash(mkdir -p \"D:/college_study/scientific_research/project/wby/backend/uploads\")",
+      "Bash(mkdir -p \"D:/college_study/scientific_research/project/wby/frontend\")",
+      "Bash(python -c \"from services.data_engine import process_dataframe; print\\('data_engine OK'\\)\")",
+      "Bash(python -c \"import main; print\\('main.py OK'\\)\")",
+      "Bash(python -c ':*)",
+      "Bash(python -W error -c ':*)",
+      "Bash(python -c \"from services.llm_agent import ask_data; from main import app, ChatRequest, ChatResponse; print\\('All imports OK'\\)\")",
+      "Bash(python test_llm_agent.py)",
+      "Bash(python -c \"from services.data_engine import get_advanced_analysis; print\\('Import OK'\\)\")",
+      "Bash(python -c \"from main import app; print\\('Backend OK'\\)\")"
+    ]
+  }
+}

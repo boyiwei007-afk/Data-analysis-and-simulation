@@ -1,0 +1,89 @@
+@echo off
+chcp 65001 >nul
+title SmartAnalysis Pro — 一键启动控制台
+
+:: ============================================================================
+:: SmartAnalysis Pro — Windows 一键启动脚本
+::
+:: 同时拉起：
+::   1. 后端 FastAPI 服务 (port 8000)  — 在新的 CMD 窗口
+::   2. 前端静态文件服务  (port 3000)  — 在新的 CMD 窗口
+::   3. 2 秒后自动打开浏览器访问前端页面
+::
+:: 前置条件：已通过 conda activate python-project 激活环境，或 Python 已全局可用
+:: ============================================================================
+
+setlocal enabledelayedexpansion
+
+:: ---------- 获取脚本所在目录的绝对路径 ----------
+set "PROJECT_ROOT=%~dp0"
+set "BACKEND_DIR=%PROJECT_ROOT%backend"
+set "FRONTEND_DIR=%PROJECT_ROOT%frontend"
+
+:: ============================================================================
+echo.
+echo   ╔══════════════════════════════════════════════════════════════╗
+echo   ║                                                              ║
+echo   ║       SmartAnalysis Pro  —  智能问数与销售模拟沙盘             ║
+echo   ║                                                              ║
+echo   ║       核心引擎正在点火...                                     ║
+echo   ║       ██████████████████████████████████████████              ║
+echo   ║                                                              ║
+echo   ╚══════════════════════════════════════════════════════════════╝
+echo.
+echo   [√] 项目根目录   %PROJECT_ROOT%
+echo.
+
+:: ============================================================================
+:: 1. 启动后端 — FastAPI (uvicorn)
+:: ============================================================================
+echo   [1/3] 启动后端服务 (FastAPI) on port 8000 ...
+start "SmartAnalysis-Backend" cmd /k ^
+  "cd /d "%BACKEND_DIR%" && ^
+  echo. && ^
+  echo   ^(后端^) SmartAnalysis Pro API 启动中... && ^
+  echo   ^(后端^) Swagger Docs  http://localhost:8000/docs && ^
+  echo   ^(后端^) Ping Endpoint http://localhost:8000/ping && ^
+  echo. && ^
+  uvicorn main:app --reload --host 0.0.0.0 --port 8000"
+
+echo   [√] 后端窗口已启动
+
+:: ============================================================================
+:: 2. 启动前端 — Python HTTP Server
+:: ============================================================================
+echo   [2/3] 启动前端服务 (Static HTTP) on port 3000 ...
+start "SmartAnalysis-Frontend" cmd /k ^
+  "cd /d "%FRONTEND_DIR%" && ^
+  echo. && ^
+  echo   ^(前端^) SmartAnalysis Pro 静态页面服务启动中... && ^
+  echo   ^(前端^) 访问地址  http://localhost:3000 && ^
+  echo. && ^
+  python -m http.server 3000"
+
+echo   [√] 前端窗口已启动
+
+:: ============================================================================
+:: 3. 等待服务预热，然后打开浏览器
+:: ============================================================================
+echo.
+echo   [3/3] 等待服务预热 (3 秒) ...
+timeout /t 3 /nobreak >nul
+
+echo   [→] 正在打开默认浏览器...
+start "" http://localhost:3000
+
+echo.
+echo   ╔══════════════════════════════════════════════════════════════╗
+echo   ║                                                              ║
+echo   ║       全部服务已启动！                                       ║
+echo   ║                                                              ║
+echo   ║       前端页面    http://localhost:3000                      ║
+echo   ║       后端 API    http://localhost:8000/docs                 ║
+echo   ║                                                              ║
+echo   ║       关闭本窗口或对应子窗口即可停止服务。                    ║
+echo   ║                                                              ║
+echo   ╚══════════════════════════════════════════════════════════════╝
+echo.
+
+pause
