@@ -16,8 +16,8 @@ python-pptx==1.0.2
 scipy==1.17.1
 setuptools==70.2.0
 sympy==1.14.0
-torch==2.9.1+cu126
-torchvision==0.24.1+cu126
+torch
+torchvision
 typing_extensions==4.15.0
 xlsxwriter==3.2.9
 yapf==0.43.0
